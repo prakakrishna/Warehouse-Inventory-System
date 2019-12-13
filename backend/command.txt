@@ -1,0 +1,6 @@
+IFS=$'\n'
+
+for i in $(find . -name *.xlsx); do echo -ne "$i - "; curl -s -X POST "http://localhost:8080/scheduler/upload?description=Upload2" -H "accept: */*" -H "Content-Type: multipart/form-data" -F "file=@$i;type=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; echo ; done
+
+
+select distinct c.component_desc, s.name, 2*l.usage d1 from plan l, parent p, supplier s, child c, child_supplier cs where p.id = l.parent_id and p.parent_item = 'FA1A0QRJAA04' and l.child_id = c.id and s.id = cs.supplier_id and c.id = cs.child_id;

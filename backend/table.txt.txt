@@ -1,0 +1,57 @@
+DROP TABLE parent_child;
+DROP TABLE parent;
+DROP TABLE child;
+DROP TABLE supplier;
+DROP TABLE upload;
+
+CREATE TABLE upload (
+id integer PRIMARY KEY,
+description VARCHAR(255) NOT NULL,
+created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP);
+
+
+
+CREATE TABLE parent (
+id integer PRIMARY KEY,
+parent_item VARCHAR (255) NOT NULL,
+end_item_desc VARCHAR (255) NOT NULL,
+is_active CHAR(1) DEFAULT 'Y',
+created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE child (
+id integer PRIMARY KEY,
+component VARCHAR (255) NOT NULL,
+component_desc VARCHAR (255) NOT NULL,
+component2_desc VARCHAR (255),
+uom VARCHAR (10) NOT NULL,
+item_type VARCHAR (10) NOT NULL,
+cost_total decimal NOT NULL,
+is_active CHAR(1) DEFAULT 'Y',
+created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE supplier (
+id integer PRIMARY KEY,
+supplier VARCHAR (255) NOT NULL,
+name VARCHAR (255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+is_active CHAR(1) DEFAULT 'Y',
+created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE parent_child (
+id integer PRIMARY KEY,
+upload_id integer NOT NULL,
+seq integer NOT NULL,
+parent_id integer NOT NULL,
+child_id integer NOT NULL,
+usage decimal NOT NULL,
+supplier_id integer NOT NULL,
+is_active CHAR(1) DEFAULT 'Y',
+created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (upload_id) REFERENCES upload(id),
+FOREIGN KEY (parent_id) REFERENCES parent(id),
+FOREIGN KEY (child_id) REFERENCES child(id),
+FOREIGN KEY (supplier_id) REFERENCES supplier(id)
+);
