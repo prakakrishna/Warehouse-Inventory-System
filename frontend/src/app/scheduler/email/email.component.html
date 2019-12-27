@@ -1,0 +1,167 @@
+<div class="container">
+  <div class="row {{showPlan}}">
+    <div class="header">
+      <br>
+      &nbsp;&nbsp;&nbsp;<button id="buttonStage" type="button" class="btn btn-secondary" (click)="stagePlan()">Stage Email</button><br><br>
+    </div>
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+      <ngx-spinner></ngx-spinner>
+      <table #planTable class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Parent</th>
+            <th>Day 1</th>
+            <th>Day 2</th>
+            <th>Day 3</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let plan of planData; let i =index;">
+            <td>{{i + 1}}</td>
+            <td>{{plan.id}}</td>
+            <td>{{plan.d1}}</td>
+            <td>{{plan.d2}}</td>
+            <td>{{plan.d3}}</td>
+            <td style='white-space: nowrap'>
+              <button type="button" class="btn btn-primary btn-sm" (click)="editPlan(i)">Edit</button>&nbsp;
+              <button type="button" class="btn btn-danger btn-sm" (click)="deletePlan(i)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row {{showReview}}">
+    <div class="header">
+      <br>&nbsp;&nbsp;&nbsp;<button id ="buttonReview" type="button" class="btn btn-warning" (click)="showBySupplier(email_id)">Review</button><br><br>
+    </div>
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+      <ngx-spinner></ngx-spinner>
+      <table #emailTable class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Parent</th>
+            <th>End Item Description</th>
+            <th>Component</th>
+            <th>Component Description</th>
+            <th>Supplier</th>
+            <th>Name</th>
+            <th>Day 1</th>
+            <th>Day 2</th>
+            <th>Day 3</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let email of emailData; let i =index;">
+            <td>{{i + 1}}</td>
+            <td>{{email.parent.parent_item}}</td>
+            <td>{{email.parent.end_item_desc}}</td>
+            <td>{{email.child.component}}</td>
+            <td>{{email.child.component_desc}}</td>
+            <td>{{email.supplier.supplier}}</td>
+            <td>{{email.supplier.name}}</td>
+            <td>{{email.d1}}</td>
+            <td>{{email.d2}}</td>
+            <td>{{email.d3}}</td>
+            <td style='white-space: nowrap'>
+              <button type="button" class="btn btn-primary btn-sm" (click)="editEmail(i)">Edit</button>&nbsp;
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteEmail(email.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row {{showEmail}}">
+    <div class="header">
+      <br>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success" (click)="sendPlan(email_id)">Send Email</button><br><br>
+    </div>
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+      <ngx-spinner></ngx-spinner>
+      <table #reviewTable class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Component</th>
+            <th>Component Description</th>
+            <th>Supplier</th>
+            <th>Name</th>
+            <th>Day 1</th>
+            <th>Day 2</th>
+            <th>Day 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let email of reviewData; let i =index;">
+            <td>{{i + 1}}</td>
+            <td>{{email.child.component}}</td>
+            <td>{{email.child.component_desc}}</td>
+            <td>{{email.supplier.supplier}}</td>
+            <td>{{email.supplier.name}}</td>
+            <td>{{email.d1}}</td>
+            <td>{{email.d2}}</td>
+            <td>{{email.d3}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div id="editPop" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Plan</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="col-sm-5 col-form-label">Day 1</label>
+        <input type="number" value={{d1}} (keyup)="onKeyD1($event)" (mouseup)="onKeyD1($event)"><br>
+        <label class="col-sm-5 col-form-label">Day 2</label>
+        <input type="number" value={{d2}} (keyup)="onKeyD2($event)" (mouseup)="onKeyD2($event)"><br>
+        <label class="col-sm-5 col-form-label">Day 3</label>
+        <input type="number" value={{d3}} (keyup)="onKeyD3($event)" (mouseup)="onKeyD3($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="save()">Ok</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="editEmail" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Plan</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="col-sm-5 col-form-label">Day 1</label>
+        <input type="number" value={{d1}} (keyup)="onKeyD1($event)" (mouseup)="onKeyD1($event)"><br>
+        <label class="col-sm-5 col-form-label">Day 2</label>
+        <input type="number" value={{d2}} (keyup)="onKeyD2($event)" (mouseup)="onKeyD2($event)"><br>
+        <label class="col-sm-5 col-form-label">Day 3</label>
+        <input type="number" value={{d3}} (keyup)="onKeyD3($event)" (mouseup)="onKeyD3($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveEmail()">Ok</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

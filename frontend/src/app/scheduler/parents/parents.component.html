@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="header">
+    <br>
+    <div class="text-right">
+      <input id="fileUpload" type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">&nbsp;&nbsp;
+      <button id="buttonUpload" type="button" class="btn btn-info" (click)="Upload()" >Bulk Add</button><br><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+      <ngx-spinner></ngx-spinner>
+      <table #parentTable class="display" style="width:100%">
+        <thead>
+        <tr>
+        <th>S.No</th>
+        <th>Parent Item</th>
+        <th>End Item Description</th>
+        <th>Program</th>
+        <th>Commodity</th>
+        <th>Created Date</th>
+        <!--th>D1</th>
+        <th>D2</th>
+        <th>D3</th-->
+        <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let parent of parentData; let i =index;">
+          <td>{{i + 1}}</td>
+          <td>{{parent.parent_item}}</td>
+          <td>{{parent.end_item_desc}}</td>
+          <td>{{parent.program}}</td>
+          <td>{{parent.commodity}}</td>
+          <td>{{parent.created_date | date: 'dd-MM-yyyy'}}</td>
+          <!--td><input type="text" value="0" size="5" (keyup)="onKeyD1($event)"></td>
+          <td><input type="text" value="0" size="5" (keyup)="onKeyD2($event)"></td>
+          <td><input type="text" value="0" size="5" (keyup)="onKeyD3($event)"></td-->
+          <td>
+            <button type="button" class="btn btn-info" (click)="addtoPlan(parent.parent_item)">Add</button>&nbsp;&nbsp;
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="popUp" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Plan</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <label class="col-sm-5 col-form-label">Day 1</label>
+          <input type="number" value={{d1}} (keyup)="onKeyD1($event)" (mouseup)="onKeyD1($event)"><br>
+          <label class="col-sm-5 col-form-label">Day 2</label>
+          <input type="number" value={{d2}} (keyup)="onKeyD2($event)" (mouseup)="onKeyD2($event)"><br>
+          <label class="col-sm-5 col-form-label">Day 3</label>
+          <input type="number" value={{d3}}  (keyup)="onKeyD3($event)" (mouseup)="onKeyD3($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="save()">Ok</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div id="missingPopUp" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Missing Parent(s)</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="display" style="width:100%">
+          <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Parent Item</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let miss of missingParent; let i =index;">
+            <td>{{i + 1}}</td>
+            <td>{{miss}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+
+  </div>
+</div>

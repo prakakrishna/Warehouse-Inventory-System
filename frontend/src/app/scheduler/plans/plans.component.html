@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="header">
+    <br>
+    <div class="text-right">
+      <button type="button" class="btn btn-info" (click)="loadAllPlans()" >Show All Plans</button><br><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+      <ngx-spinner></ngx-spinner>
+      <table #plansTable class="display" style="width:100%">
+        <thead>
+        <tr>
+        <th>S.No</th>
+        <th>Parent Item</th>
+        <th>Description</th>
+        <th>Program</th>
+        <th>Commodity</th>
+        <th>Component</th>
+        <th>Component Description</th>
+        <th>Component Description II</th>
+        <th>Usage</th>
+        <th>Unit of Measurement</th>
+        <th>Item Type</th>
+        <th>Cost Total</th>
+        <th>Created Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let plan of plansData; let i =index;">
+          <td>{{i + 1}}</td>
+          <td>{{plan.parent.parent_item}}</td>
+          <td>{{plan.parent.end_item_desc}}</td>
+          <td>{{plan.parent.program}}</td>
+          <td>{{plan.parent.commodity}}</td>
+          <td>{{plan.child.component}}</td>
+          <td>{{plan.child.component_desc}}</td>
+          <td>{{plan.child.component2_desc}}</td>
+          <td>{{plan.usage}}</td>
+          <td>{{plan.child.uom}}</td>
+          <td>{{plan.child.item_type}}</td>
+          <td>{{plan.child.cost_total}}</td>
+          <td>{{plan.created_date | date: 'dd-MM-yyyy'}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

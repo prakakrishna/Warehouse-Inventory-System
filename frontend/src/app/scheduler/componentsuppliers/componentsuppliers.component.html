@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="header">
+      <br>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+        <ngx-spinner></ngx-spinner>
+        <table #componentSuppliersTable class="display" style="width:100%">
+          <thead>
+          <tr>
+          <th>S.No</th>
+          <th>Component</th>
+          <th>Component Description</th>
+          <th>Supplier ID</th>
+          <th>Supplier Name</th>
+          <th>Created Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let componentSupplier of componentSuppliersData; let i =index;">
+            <td>{{i + 1}}</td>
+            <td>{{componentSupplier.child.component}}</td>
+            <td>{{componentSupplier.child.component_desc}}</td>
+            <td>{{componentSupplier.supplier.supplier}}</td>
+            <td>{{componentSupplier.supplier.name}}</td>
+            <td>{{componentSupplier.created_date | date: 'dd-MM-yyyy'}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
