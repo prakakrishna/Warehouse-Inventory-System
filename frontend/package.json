@@ -22,7 +22,7 @@
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",
     "datatables-buttons": "^1.0.3",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.11.3",
     "datatables.net-buttons": "^1.5.4",
     "datatables.net-buttons-dt": "^1.5.4",
     "datatables.net-dt": "^1.10.19",
